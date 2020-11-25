@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Deployment
+name: Test &  Deploy
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
@@ -56,11 +56,10 @@ jobs:
         DEPLOY_PATH: ~/editor-test${{ steps.build-path.outputs.build }}
       run: |
         # store build
-        cp -r build ~/editor-test
+        mkdir -p "${DEPLOY_PATH}"
+        cp -r build/* "${DEPLOY_PATH}"
         # Update gh-pages
         cd ~/editor-test
-        mkdir -p "${DEPLOY_PATH}"
-        cp -r ~/editor-build/* "${DEPLOY_PATH}"
         # commit new build
         git add "${DEPLOY_PATH}"
         git commit -m "Build ${{ steps.build-path.outputs.build }}"
