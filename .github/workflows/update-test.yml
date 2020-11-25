@@ -1,18 +1,17 @@
-# This is a basic workflow to help you get started with Actions
-
 name: Test &  Deploy
 
-# Controls when the action will run. Triggers the workflow on push or pull request
-# events but only for the master branch
 on:
-  push
+  pull_request_target:
+    types:
+      - opened
+      - synchronize
 
 jobs:
   main:
     runs-on: ubuntu-20.04
     steps:
     - name: generate build path
-      run: echo "::set-output name=build::${{github.event.number}}/$(date +'%Y-%m-%d_%H-%m-%d')/" | sed 's_build::/*_build::/_'
+      run: echo "::set-output name=build::${{github.event.number}}/$(date +'%Y-%m-%d_%H-%m-%d')/" | sed 's_build::/*_build::_'
       id: build-path
 
     - name: print build path
@@ -29,7 +28,7 @@ jobs:
 
     - run: npm run build
       env:
-        PUBLIC_URL: ${{ steps.build-path.outputs.build }}
+        PUBLIC_URL: /${{ steps.build-path.outputs.build }}
 
     - name: prepare git
       run: |
@@ -77,3 +76,12 @@ jobs:
       run: |
         cd ~/editor-test
         git push origin gh-pages
+
+    - name: add comment with deployment location
+      uses: thollander/actions-comment-pull-request@master
+      with:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        message: >
+          This pull request is deployed at
+          [test.editor.opencast.org/${{ steps.build-path.outputs.build }}
+          ](https://test.editor.opencast.org/${{ steps.build-path.outputs.build }})
