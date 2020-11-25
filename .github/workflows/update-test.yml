@@ -53,10 +53,13 @@ jobs:
 
     - name: store build
       env:
-        DEPLOY_PATH: ~/editor-test${{ steps.build-path.outputs.build }}
+        DEPLOY_PATH: ${{ steps.build-path.outputs.build }}
       run: |
-        mkdir -p "${DEPLOY_PATH}"
-        cp -rv build/* "${DEPLOY_PATH}"
+        mkdir -p "${HOME}/editor-test/${{ steps.build-path.outputs.build }}"
+        cp -rv build/* "${HOME}/editor-test/${{ steps.build-path.outputs.build }}"
+
+    - name: commit new version
+      run: |
         cd ~/editor-test
         ls -1
         git add .
