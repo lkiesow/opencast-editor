@@ -56,12 +56,13 @@ jobs:
         DEPLOY_PATH: ~/editor-test${{ steps.build-path.outputs.build }}
       run: |
         mkdir -p "${DEPLOY_PATH}"
-        cp -r build/* "${DEPLOY_PATH}"
+        cp -rv build/* "${DEPLOY_PATH}"
 
     - name: commit new version
       run: |
         cd ~/editor-test
         git add .
+        git status
         git commit -m "Build ${{ steps.build-path.outputs.build }}"
 
     - name: push updates
