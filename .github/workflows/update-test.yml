@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
     - name: generate build path
-      run: echo "::set-output name=build::${{github.event.number}}/$(date +'%Y-%m-%dT%H:%M:%S')/" | sed 's_build::/*_build::/_'
+      run: echo "::set-output name=build::${{github.event.number}}/$(date +'%Y-%m-%d_%H-%m-%d')/" | sed 's_build::/*_build::/_'
       id: build-path
 
     - name: print build path
@@ -51,16 +51,18 @@ jobs:
         cd ~/editor-test
         git checkout gh-pages
 
+    - name: store build
+      env:
+        DEPLOY_PATH: ~/editor-test${{ steps.build-path.outputs.build }}
+      run: |
+        mkdir -p "${DEPLOY_PATH}"
+        cp -r build/* "${DEPLOY_PATH}"
+
     - name: commit new version
       env:
         DEPLOY_PATH: ~/editor-test${{ steps.build-path.outputs.build }}
       run: |
-        # store build
-        mkdir -p "${DEPLOY_PATH}"
-        cp -r build/* "${DEPLOY_PATH}"
-        # Update gh-pages
         cd ~/editor-test
-        # commit new build
         git add "${DEPLOY_PATH}"
         git commit -m "Build ${{ steps.build-path.outputs.build }}"
 
