@@ -59,11 +59,9 @@ jobs:
         cp -r build/* "${DEPLOY_PATH}"
 
     - name: commit new version
-      env:
-        DEPLOY_PATH: ~/editor-test${{ steps.build-path.outputs.build }}
       run: |
         cd ~/editor-test
-        git add "${DEPLOY_PATH}"
+        git add .
         git commit -m "Build ${{ steps.build-path.outputs.build }}"
 
     - name: push updates
