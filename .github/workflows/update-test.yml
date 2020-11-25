@@ -53,10 +53,19 @@ jobs:
 
     - name: store build
       env:
-        DEPLOY_PATH: ${{ steps.build-path.outputs.build }}
+        DEPLOY_PATH: editor-test/${{ steps.build-path.outputs.build }}
       run: |
-        mkdir -p "${HOME}/editor-test/${{ steps.build-path.outputs.build }}"
-        cp -rv build/* "${HOME}/editor-test/${{ steps.build-path.outputs.build }}"
+        mkdir -p "${HOME}/${DEPLOY_PATH}"
+        cp -rv build/* "${HOME}/${DEPLOY_PATH}"
+
+    - name: generate index.html
+      run: |
+        cd ~/editor-test
+        echo '<html><body><ul>' > index.html
+        find . -maxdepth 2 -name '*_*' -type d \
+          | sort -r \
+          | sed 's/^\(.*\)$/<li><a href=\1>\1<\/a><\/li>/' >> index.html
+        echo '</ul></body></html>' >> index.html
 
     - name: commit new version
       run: |
