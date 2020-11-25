@@ -61,6 +61,7 @@ jobs:
     - name: commit new version
       run: |
         cd ~/editor-test
+        ls -1
         git add .
         git status
         git commit -m "Build ${{ steps.build-path.outputs.build }}"
