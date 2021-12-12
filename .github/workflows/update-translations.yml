@@ -1,8 +1,6 @@
 name: Update translations
 
-on:
-  schedule:
-  - cron: "0 20 * * *"
+on: push
   #- cron: "0 5 * * 1"
 
 jobs:
