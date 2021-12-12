@@ -7,7 +7,7 @@ on:
 
 jobs:
   update-translations:
-    if: github.repository_owner == 'elan-ev'
+    if: github.repository_owner == 'lkiesow'
     runs-on: ubuntu-latest
     env:
       CROWDIN_API_KEY: ${{ secrets.CROWDIN_API_KEY }}
