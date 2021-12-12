@@ -9,8 +9,8 @@ jobs:
   update-translations:
     if: github.repository_owner == 'lkiesow'
     runs-on: ubuntu-latest
-    env:
-      CROWDIN_API_KEY: ${{ secrets.CROWDIN_API_KEY }}
+    #env:
+    #  CROWDIN_API_KEY: ${{ secrets.CROWDIN_API_KEY }}
     steps:
       - uses: actions/checkout@v2
 
