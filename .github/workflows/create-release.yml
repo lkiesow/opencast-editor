@@ -7,7 +7,7 @@ name: Upload Release Asset
 
 jobs:
   build:
-    name: Upload Release Asset
+    name: Create release from tag
     runs-on: ubuntu-latest
     steps:
       - name: checkout code
@@ -27,7 +27,6 @@ jobs:
       - name: create new release
         uses: softprops/action-gh-release@v1
         with:
-          body_path: release-notes.md
           files: oc-editor-*.tar.gz
           draft: true
           fail_on_unmatched_files: true
