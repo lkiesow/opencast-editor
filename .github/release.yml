@@ -1,0 +1,27 @@
+changelog:
+
+  exclude:
+    authors:
+      - dependabot[bot]
+
+  categories:
+    - title: New Features
+      labels:
+        - type:feature
+
+    - title: Enhancements
+      labels:
+        - type:enhancement
+
+    - title: Usability and Accessibility
+      labels:
+        - type:usability
+        - type:accessibility
+
+    - title: Bug Fixes
+      labels:
+        - type:bug
+
+    - title: Other Changes
+      labels:
+        - "*"
