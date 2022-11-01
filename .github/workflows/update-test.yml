@@ -8,7 +8,7 @@ on:
 
 jobs:
   main:
-    if: ${{ needs.member.outputs.is_team_member
+    if: ${{ needs.member.outputs.is_team_member == 'true'
       || github.event.pull_request.head.repo.full_name == 'opencast/opencast-editor' }}
     needs: member
     runs-on: ubuntu-latest
