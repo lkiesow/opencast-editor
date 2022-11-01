@@ -1,4 +1,4 @@
-Opencast Video Editor
+Opencast Editor
 =====================
 
 [![Build & Deploy](https://github.com/opencast/opencast-editor/workflows/Build%20&%20Deploy/badge.svg)
